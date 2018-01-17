@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="exchangeApp">
+<head>
+	<meta charset="UTF-8">
+	<title>Angular Exchange</title>
+	<style type="text/css">
+		.ng-cloak{
+			display: none;
+		}
+	</style>
+</head>
+<body ng-controller="exchangeCtrl as invoice" ng-cloak class="ng-cloak">
+	<h1>订单</h1>
+	<div>
+		数量 :<input type="number" ng-model="invoice.number" required>
+	</div>
+	<div>
+		单价：<input type="number" ng-model="invoice.price" required>
+		<select ng-model="invoice.inCurr">
+			<option ng-repeat="c in invoice.currencies">{{c}}</option>
+		</select>
+	</div>
+	<div>
+		总价：
+		<span ng-repeat="c in invoice.currencies">
+				{{invoice.total(c) | currency:c}}<!-- {{expression | filter}} currency 过滤器把数字格式化为金额的形式输出-->
+		</span>
+	</div>
+	<button ng-click="invoice.pay()">pay</button>
+	<script src="angular.min.js"></script>
+	<script src="serrvice.js"></script>
+	<script src="controller.js"></script>
+</body>
+</html>
